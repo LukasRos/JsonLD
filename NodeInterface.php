@@ -61,6 +61,15 @@ interface NodeInterface
     public function getType();
 
     /**
+     * Check whether node has a certain type
+     * 
+     * @param NodeInterface|string $type The type to check for.
+     *
+     * @return boolean Whether the node has the type or not.
+     */
+    public function hasType($type);
+    
+    /**
      * Get the nodes which have this node as their type
      *
      * This will return all nodes that link to this Node instance via the

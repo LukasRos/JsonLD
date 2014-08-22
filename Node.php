@@ -117,6 +117,27 @@ class Node implements NodeInterface, JsonLdSerializable
     /**
      * {@inheritdoc}
      */
+    public function hasType($type)
+    {
+        if (is_object($type) && in_array("ML\\JsonLD\\NodeInterface", class_implements($type)))
+            $type = $type->getId();
+        else $type = (string)$type;
+
+        $types = $this->getType();
+        if (!$types) return false;
+        
+        if (is_array($types)) {
+            foreach ($types as $t)
+                if ($t->getId()==$type) return true;
+            return false;
+        } else {
+            return ($types->getId()==$type);
+        }
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
     public function getNodesWithThisType()
     {
         if (null === ($nodes = $this->getReverseProperty(self::TYPE))) {
